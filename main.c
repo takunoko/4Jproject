@@ -9,6 +9,7 @@
 
 typedef struct {
 	int card[HAND_CARD_SIZE]; // プレイヤーの持っているカード Maxで25枚ぐらいしか持たないでしょ
+	int card_num;	// カードの枚数を保持
 	int play_flg; // このユーザーがゲームに勝利とかしていないかの判定
 }PLAYER;
 
@@ -17,6 +18,13 @@ int set_player();
 void init_game( int, PLAYER*);
 void change_int( int*, int*);
 void game();
+
+int main(void){
+	init_program();	// なんか、乱数の初期化とかするときに使う
+	game();
+
+	return 0;
+}
 
 void init_program(){
 	// 乱数の初期化
@@ -55,7 +63,6 @@ void init_game(int player_size, PLAYER players[]){
 	for(i=0; i<54; i++){
 		printf("%d = %d\n", i, card[i]);
 	}
-
 #endif
 
 	int j;
@@ -63,20 +70,24 @@ void init_game(int player_size, PLAYER players[]){
 		for(i=0; i<HAND_CARD_SIZE; i++){
 			players[j].card[i] = -1;
 		}
+		players[j].card_num = 0;
 	}
 	// 各プレイヤーにカードを代入
 	for(i=0; i<54; i++){
 		players[i%player_size].card[i/player_size] = card[i];
+		players[i%player_size].card_num++; // カードの枚数をカウント
 	}
 
 #ifdef DEBUG
 	// 配られたカードの確認
 	for(j=0; j<player_size; j++){
-		for(i=0; i<25; i++){
-			printf("P:%d C(%d, %d)\n", j, i, players[j].card[i]);
+		printf("P:%d  ", j);
+		for(i=0; i<players[j].card_num; i++){
+			printf(" %2d,", players[j].card[i]);
 			// 表示内容
 			// P:プレイヤー C(n番目, カードの種類)
 		}
+		putchar('\n');
 	}
 #endif
 }
@@ -98,20 +109,12 @@ void game(){
 	}
 }
 
-
 // 交換
 void change_int( int *x, int *y){
 	int tmp;
 	tmp = *x;
 	*x = *y;
 	*y = tmp;
-}
-
-int main(void){
-	init_program();	// なんか、乱数の初期化とかするときに使う
-	game();
-
-	return 0;
 }
 
 
