@@ -16,8 +16,6 @@ main(int argc, char *argv[])
 	char   buf[1024];
 	int    ret;
 
-
-
 	if (argc != 2){
 		printf("Usage: iclient SERVER_NAME\n");
 		return 1;
