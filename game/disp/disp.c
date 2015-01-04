@@ -9,6 +9,8 @@ void init_curses(){
 	start_color();
   init_pair(2,COLOR_BLUE,COLOR_BLUE);
   init_pair(1,COLOR_BLACK,COLOR_RED);
+
+  curs_set(0);         //カーソル非表示(1)で表示
 }
 
 // curses関連の処理を終わる際に必ず実行
@@ -20,12 +22,12 @@ void end_curses(){
 void blue_disp(void){
   clear();
   bkgd(COLOR_PAIR(2));
-  curs_set(0);
+	refresh();
 }
 
 void red_disp(void)
 {
   clear();             //スクリーンをクリアし、リフレッシュ
   bkgd(COLOR_PAIR(1)); //スクリーンカラー変更
-  curs_set(0);         //カーソル非表示(1)で表示
+	refresh();
 }
