@@ -10,9 +10,11 @@
 #define NONE   0
 
 /* フィールド関係 */
-#define MAPXSIZE 60 /* Mapのx軸の大きさ */
-#define MAPYSIZE 20 /* Mapのy軸の大きさ */
+/* x:y=2:1ぐらいが画面的に綺麗で見やすい */
+#define MAPXSIZE 20 /* Mapのx軸の大きさ */
+#define MAPYSIZE 10 /* Mapのy軸の大きさ */
 
+/* PlayerとEnemyの数 */
 #define ENEMY     5 /* Level毎に増える敵の数 */
 #define MAXENEMY 41 /* プレイヤー+敵の最大数 */
 
@@ -41,22 +43,29 @@ typedef struct
 
 /* mapの初期化を行う関数 */
 void initialise(int map[MAPXSIZE][MAPYSIZE]);
+
 /* PC,NPCに関する位置座標と破壊判定とその経過ターン数を初期化する関数 */
 void refresh(Point list[MAXENEMY]);
+
 /* levelに合わせてrobotの最大数を設定する関数 */
 int  robot_factory(int lv);
+
 /* robotの最大数に合わせてマップにPC,NPCを配置する関数 */
 /* 同時に構造体にPC,NPCの位置座標を記録する */
 void spawn(int map[MAPXSIZE][MAPYSIZE],int bot,Point list[MAXENEMY]);
+
 /* マップとスコアを表示する関数 */
 /* マップにはPC,NPCも同時に表示される */
 void print_stats(int map[MAPXSIZE][MAPYSIZE],Info book[MAXINFO]);
+
 /* プレイヤーの移動制御を行う関数 */
 /* getCharを用いてリアルタイムの更新を行っている */
 void player_turn(int map[MAPXSIZE][MAPYSIZE],Point list[MAXENEMY]);
+
 /* robotの移動制御を行う関数 */
 /* 同時にプレイヤーとrobotの接触判定を行っている*/
 void robot_turn(int map[MAPXSIZE][MAPYSIZE],Point list[MAXENEMY],int bot,Info book[MAXINFO]);
+
 /* ゲームのクリア判定を行う関数 */
 void level_clear(int map[MAPXSIZE][MAPYSIZE],Point list[MAXENEMY],int bot,Info book[MAXINFO]);
 
