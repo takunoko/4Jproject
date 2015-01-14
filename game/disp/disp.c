@@ -31,3 +31,26 @@ void red_disp(void)
   bkgd(COLOR_PAIR(1)); //スクリーンカラー変更
 	refresh();
 }
+
+void disp_tile_row(int row_data, int pos_x, int pos_y){
+	switch(row_data){
+		case 1:
+			mvprintw(   pos_y, pos_x,"|##|  |  |  |");
+			mvprintw( pos_y+1, pos_x,"|##|  |  |  |");
+			break;
+		case 2:
+			mvprintw(   pos_y, pos_x,"|  |##|  |  |");
+			mvprintw( pos_y+1, pos_x,"|  |##|  |  |");
+			break;
+		case 3:
+			mvprintw(   pos_y, pos_x,"|  |  |##|  |");
+			mvprintw( pos_y+1, pos_x,"|  |  |##|  |");
+			break;
+		case 4:
+			mvprintw(   pos_y, pos_x,"|  |  |  |##|");
+			mvprintw( pos_y+1, pos_x,"|  |  |  |##|");
+			break;
+		default:
+			break;
+	}
+}
