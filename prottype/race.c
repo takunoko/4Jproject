@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#define dist 200
+#define dist 1000
 #define width 3
 
 int main(void){
@@ -40,7 +40,7 @@ int main(void){
     mvinsch(3,0,' ');
     mvinsch(4,0,"=|="[d%width]);
     mvaddch(py,px+1,'-');
-    
+
     py += -(ch == KEY_UP && py > 0) + (ch == KEY_DOWN && py < width+1);
     move(py,px);
     if(inch() != ' ') break;
