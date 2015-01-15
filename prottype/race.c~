@@ -1,0 +1,55 @@
+#include <curses.h>
+#include <unistd.h>
+#include <time.h>
+
+#define dist 200
+
+int main(void){
+  int d,ch,py,px;
+  srand(time(NULL));
+  if(!initscr()) return 1;
+  noecho();
+  nonl();
+  cbreak();
+  wtimeout(stdscr,0);
+  keypad(stdscr,TRUE);
+  leaveok(stdscr,TRUE);
+
+ RETRY:
+  curs_set(0);
+  clear();
+  py = 2;
+  px = 20;
+  for(d=0;d<dist+px-1;++d){
+    usleep(40000);
+    ch = getch();
+    if(d % 3 == 0) move(rand()%3+1,0),addch('*');
+    if(d == dist)
+      mvaddch(0,0,'G'),
+	mvaddch(1,0,'O'),
+	mvaddch(2,0,'A'),
+	mvaddch(3,0,'L'),
+	mvaddch(4,0,'!');
+    mvinsch(0,0,"=|="[d%3]);
+    mvinsch(1,0,'');
+    mvinsch(2,0,'');
+    mvinsch(3,0,'');
+    mvinsch(4,0,"=|="[d%3]);
+    mvaddch(py,px+1,'-');
+    
+    py += -(ch == KEY_UP && > 0) + (ch == KEYDOWN && oy < 4);
+    move(py,px);
+    if(inch() != '') break;
+    addstr("<\b");
+    refresh();
+  }
+  curs_set(1);
+  mvaddstr(5,0,"retry or quit [r/q] ?");
+  refresh();
+  do{
+    ch = getch();
+    if(ch == 'r') goto RETRY;
+  }while(ch != 'q');
+  endwin();
+  return 0;
+}
