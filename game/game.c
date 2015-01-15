@@ -63,18 +63,18 @@ void game_loop(){
 
 	init_curses(); // cursesを使うための初期化
 
-	// red_disp();
-	// my_sleep(3);
-	// blue_disp();
-	// gettimeofday(&start, NULL);
-  // getch();             //ボタン入力待ち
-	// gettimeofday(&end, NULL);
+	red_disp();
+	my_sleep(3);
+	blue_disp();
+	gettimeofday(&start, NULL);
+  getch();             //ボタン入力待ち
+	gettimeofday(&end, NULL);
 	end_curses();
 
 	if (end.tv_usec < start.tv_usec) {
-		// printf("%d.%d[us]\n", (int)(end.tv_sec - start.tv_sec - 1), (int)(1000000 + end.tv_usec - start.tv_usec));
+		printf("%d.%d[us]\n", (int)(end.tv_sec - start.tv_sec - 1), (int)(1000000 + end.tv_usec - start.tv_usec));
 	}
 	else {
-		// printf("%d.%d[us]\n", (int)(end.tv_sec - start.tv_sec), (int)(end.tv_usec - start.tv_usec));
+		printf("%d.%d[us]\n", (int)(end.tv_sec - start.tv_sec), (int)(end.tv_usec - start.tv_usec));
 	}
 }

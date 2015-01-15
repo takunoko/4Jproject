@@ -1,5 +1,4 @@
 #include "network.h"
-
 // 戻り値としてfdが返される
 // このfdに対してreadとかwriteを行うことによって通信を行える。
 int init_client(void){
