@@ -34,10 +34,10 @@ void assign(struct node *result , char game_res[])
   int i,j,k;
   int count = 0;
   char cut_elem[10];    /*切り出した文字列*/
-  
-  
+
+
   i=j=k=0;
-  
+
   /*3つの要素に分割・代入*/
   if(count == 0){
     for(i=0;game_res[i]!=' ';i++){}
