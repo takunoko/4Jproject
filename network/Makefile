@@ -1,10 +1,19 @@
-all : network game_server
+CC = gcc
+OPTION = -Wall -v
 
-network : network.o
-	gcc -o $@ $^
+CREATE_FILES = game_server game_client network_main
+
+all : ${CREATE_FILES}
+
+network_main : network_main.o network.o
+	${CC} ${OPTION} -o $@ $^
 
 game_server : game_server.o network.o
-	gcc -o game_server game_server.o network.o
+	${CC} ${OPTION} -o $@ $^
 
-.o.c :
-	cc -c $@
+game_client : game_client.o network.o
+	${CC} ${OPTION} -o $@ $^
+
+clean :
+	rm *.o
+	rm ${CREATE_FILES}
