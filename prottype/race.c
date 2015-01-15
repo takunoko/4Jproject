@@ -7,6 +7,7 @@
 
 int main(void){
   int d,ch,py,px;
+  int wx,wy;
   int flag = 0;
   srand(time(NULL));
   if(!initscr()) return 1;
@@ -16,6 +17,7 @@ int main(void){
   wtimeout(stdscr,0);
   keypad(stdscr,TRUE);
   leaveok(stdscr,TRUE);
+  getmaxyx(stdscr,wy,wx);
 
   // RETRY:
   curs_set(0);
@@ -23,9 +25,11 @@ int main(void){
   py = 2;
   px = 20;
   for(d=0;d<dist+px-1;++d){
-    usleep(100000);
+    if(d < 200) usleep(100000);
+    else usleep(60000);
     ch = getch();
     if(d % width == 0) move(rand() % width+1 ,0),addch('*');
+    /*
     if(d == dist){
       mvaddch(0,0,'G'),
 			mvaddch(1,0,'O'),
@@ -34,6 +38,7 @@ int main(void){
 			mvaddch(4,0,'!');
       flag = 1;
     }
+    */
     mvinsch(0,0,"=|="[d%width]);
     mvinsch(1,0,' ');
     mvinsch(2,0,' ');
@@ -56,9 +61,11 @@ int main(void){
     if(ch == 'r') goto RETRY;
   }while(ch != 'q');
   */
+  timeout(-1);
+  getch();
+
   clear();
-  if(flag)mvaddstr(4,34,"CLEAR");
-  else    mvaddstr(4,34,"GAME OVER");
+  printw("Your Score is %d",d);
 
   timeout(-1);
   getch();
