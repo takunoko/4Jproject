@@ -16,6 +16,11 @@ int main(void)
   struct node result;
   char ranking_list[4];
 
+	/* 送信されてくるデータの形式
+	 * ユーザーID 順位 時間
+	 *	3 1 2.5
+	 * みたいな感じ
+	 */
   char game_res_A[] = "A 2 4.8";
   char game_res_B[] = "B 4 7.2";
   char game_res_C[] = "C 1 3.0";
