@@ -28,10 +28,10 @@ int main(void){
     if(d % width == 0) move(rand() % width+1 ,0),addch('*');
     if(d == dist){
       mvaddch(0,0,'G'),
-	mvaddch(1,0,'O'),
-	mvaddch(2,0,'A'),
-	mvaddch(3,0,'L'),
-	mvaddch(4,0,'!');
+			mvaddch(1,0,'O'),
+			mvaddch(2,0,'A'),
+			mvaddch(3,0,'L'),
+			mvaddch(4,0,'!');
       flag = 1;
     }
     mvinsch(0,0,"=|="[d%width]);
