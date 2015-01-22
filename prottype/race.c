@@ -25,8 +25,9 @@ int main(void){
   py = 2;
   px = 20;
   for(d=0;d<dist+px-1;++d){
-    if(d < 200) usleep(100000);
-    else usleep(60000);
+		usleep(100000 - (d * 100));
+		// usleep(100000);
+		// usleep(60000);
     ch = getch();
     if(d % width == 0) move(rand() % width+1 ,0),addch('*');
     /*
