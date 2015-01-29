@@ -27,13 +27,25 @@ int main(void){
 	my_id = atoi( c_buf);
 	printf("my_id : %d\n", my_id);
 
-	while (fgets(c_buf, 1024, stdin)) {
-		write(c_fd, c_buf, 1024);
-		c_ret = read(c_fd, c_buf, 1024);
-		c_buf[c_ret] = '\0';
-		//write(1, buf, ret);
-		printf("%s",c_buf);
-	}
+	// while (fgets(c_buf, 1024, stdin)) {
+	// 	write(c_fd, c_buf, 1024);
+	// 	c_ret = read(c_fd, c_buf, 1024);
+	// 	c_buf[c_ret] = '\0';
+	// 	printf("%s",c_buf);
+	// }
+
+	// サーバーからのプログラム実行のタイミングを待つ
+	// ここで読まれるのは乱数のシード値
+	read(c_fd, c_buf, 1024);
+	srand(atoi( c_buf));
+
+	printf("init_game\n");
+
+	// ゲームスタートが呼ばれる
+	read(c_fd, c_buf, 1024);
+	printf("str : %s\n", c_buf);
+
+
 	close(c_fd);
 
 	return 0;
