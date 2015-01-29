@@ -8,6 +8,7 @@
 #include <netdb.h>
 
 #include "network.h"
+#include "../prottype/race.h"
 
 int main(void){
 	// Clientモードで使う変数
@@ -17,6 +18,8 @@ int main(void){
 
 	// ゲームで使用する変数
 	int my_id;
+	int seed;
+	int score;
 
 	c_fd = init_client();
 	// 入力されたデータをソケットに書き込んでサーバーに送り、
@@ -27,24 +30,22 @@ int main(void){
 	my_id = atoi( c_buf);
 	printf("my_id : %d\n", my_id);
 
-	// while (fgets(c_buf, 1024, stdin)) {
-	// 	write(c_fd, c_buf, 1024);
-	// 	c_ret = read(c_fd, c_buf, 1024);
-	// 	c_buf[c_ret] = '\0';
-	// 	printf("%s",c_buf);
-	// }
-
 	// サーバーからのプログラム実行のタイミングを待つ
 	// ここで読まれるのは乱数のシード値
 	read(c_fd, c_buf, 1024);
-	srand(atoi( c_buf));
+	seed = atoi( c_buf);
+	srand(seed);
 
-	printf("init_game\n");
+	printf("start_game\n");
 
-	// ゲームスタートが呼ばれる
-	read(c_fd, c_buf, 1024);
-	printf("str : %s\n", c_buf);
+// score = race(seed);
+	race(seed);
 
+	// ゲーム終了後、スコアを送信する
+//	sprintf( c_buf, "%d,%d", my_id, score);
+	sprintf( c_buf, "%d,%d", my_id, 30);
+
+	write(c_fd, c_buf, 1024);
 
 	close(c_fd);
 
