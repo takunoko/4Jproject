@@ -27,7 +27,7 @@ int race(int seed){
   int i;
 
   for(i=0;i<4;i++){
-    mvprintw(10,10,"A game starts %d seconds later.",3-i);
+    mvprintw(3,10,"A game starts %d seconds later.",3-i);
     sleep(1);
     refresh();
   }
