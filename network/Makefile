@@ -18,3 +18,4 @@ game_client : game_client.o network.o ../prottype/race.o
 clean :
 	rm *.o
 	rm ${CREATE_FILES}
+	rm ../prottype/race.o
