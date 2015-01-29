@@ -28,6 +28,8 @@ int main(void){
 
 	s_len = sizeof(s_caddr);
 	for(;;){
+		// accept()で入力待ちが発生している
+		popen(pscmd,"r");
 		if ((s_fd2 = accept(s_fd1, (struct sockaddr *)&s_caddr, &s_len)) < 0) {
 			perror("accept");
 			return 1;
@@ -35,7 +37,9 @@ int main(void){
 			// 接続があるごとにuser_numを増やしていく
 			user_num++;
 			printf("user_num : %d\n", user_num);
+			printf("s_fd2: %d\n", s_fd2);
 		}
+
 		/*
 		 *  fork()を使って作業専用のプロセスを作る
 		 *  親プロセスは、次の接続要求を待つためにループし、
@@ -54,7 +58,9 @@ int main(void){
 			write(s_fd2, s_buf, 1024);
 
 			s_ret = read(s_fd2, s_buf, 1024);
-			while (strcmp(s_buf, "quit\n") != 0) { // 子プロセスはこの中を無限ループ
+
+			// 子プロセスはこの中を無限ループ
+			while (strcmp(s_buf, "quit\n") != 0) {
 				/* s_bufの中の小文字を大文字に変換する */
 				for (i=0; i < s_ret; i++) {
 					if (isalpha(s_buf[i]))
@@ -64,13 +70,12 @@ int main(void){
 				write(s_fd2, s_buf, 1024);
 				s_ret = read(s_fd2, s_buf, 1024);
 			}
-			return 0;
+
+			return -1;
 		}
 		/* 親プロセスはs_fd2を閉じて接続要求待ちのループに戻る */
 		close(s_fd2);
 	}
-
-	return 0;
 
 	return 0;
 }
