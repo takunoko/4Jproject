@@ -20,13 +20,12 @@ int main(void){
   getmaxyx(stdscr,wy,wx);
 
   // RETRY:
-  /* 速度の調節を行う */
   curs_set(0);
   clear();
-  py = 2;
+  py = width-1;
   px = 20;
   for(d=0;d<dist+px-1;++d){
-	usleep(100000 - (d * 100));
+    usleep(100000 - (d * 100));
     ch = getch();
     if(d % width == 0) move(rand() % width+1 ,0),addch('*');
     /*
@@ -47,9 +46,12 @@ int main(void){
     mvaddch(py,px+1,'-');
 
     py += -(ch == KEY_UP && py > 0) + (ch == KEY_DOWN && py < width+1);
+    if(py == 0)py = 1;
+    else if(py == 4)py = 3;
     move(py,px);
     if(inch() != ' ') break;
     addstr("<\b");
+    mvprintw(10,10,"Score:%d",d+1);
     refresh();
   }
   /*
