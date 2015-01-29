@@ -5,11 +5,11 @@
 #define dist 1000
 #define width 3
 
-int main(void){
+int race(int seed){
   int d,ch,py,px;
   int wx,wy;
   int flag = 0;
-  srand(time(NULL));
+  srand(seed);
   if(!initscr()) return 1;
   noecho();
   nonl();
