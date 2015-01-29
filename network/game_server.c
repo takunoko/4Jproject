@@ -103,13 +103,6 @@ int main(void){
 		write(s_fd2[i], s_buf, 1024);
 	}
 
-	// ゲーム開始の送信
-	sprintf(s_buf, "S");
-	for( i=0; i<user_num; i++){
-		write(s_fd2[i], s_buf, 1024);
-	}
-
-
 	printf("end");
 
 	return 0;
