@@ -26,17 +26,7 @@ int main(void){
   py = 2;
   px = 20;
   for(d=0;d<dist+px-1;++d){
-<<<<<<< HEAD
-    if(d < 100)     usleep(100000);
-    else if(d < 200)usleep(90000);
-    else if(d < 250)usleep(80000);
-    else if(d < 300)usleep(70000);
-    else if(d < 400)usleep(60000);
-=======
-		usleep(100000 - (d * 100));
-		// usleep(100000);
-		// usleep(60000);
->>>>>>> 12590086a9118a01d515cfb8be11f52f06675e07
+	usleep(100000 - (d * 100));
     ch = getch();
     if(d % width == 0) move(rand() % width+1 ,0),addch('*');
     /*
