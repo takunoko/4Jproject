@@ -24,19 +24,29 @@ int main(void){
   clear();
   py = width-1;
   px = 20;
+  int i;
+
+  for(i=0;i<4;i++){
+    mvprintw(10,10,"A game starts %d seconds later.",3-i);
+    sleep(1);
+    refresh();
+  }
+
+  clear();
+
   for(d=0;d<dist+px-1;++d){
     usleep(100000 - (d * 100));
     ch = getch();
     if(d % width == 0) move(rand() % width+1 ,0),addch('*');
     /*
-    if(d == dist){
+      if(d == dist){
       mvaddch(0,0,'G'),
-			mvaddch(1,0,'O'),
-			mvaddch(2,0,'A'),
-			mvaddch(3,0,'L'),
-			mvaddch(4,0,'!');
+      mvaddch(1,0,'O'),
+      mvaddch(2,0,'A'),
+      mvaddch(3,0,'L'),
+      mvaddch(4,0,'!');
       flag = 1;
-    }
+      }
     */
     mvinsch(0,0,"=|="[d%width]);
     mvinsch(1,0,' ');
@@ -55,20 +65,20 @@ int main(void){
     refresh();
   }
   /*
-  curs_set(1);
-  mvaddstr(5,0,"retry or quit [r/q] ?");
-  refresh();
-  do{
+    curs_set(1);
+    mvaddstr(5,0,"retry or quit [r/q] ?");
+    refresh();
+    do{
     ch = getch();
     if(ch == 'r') goto RETRY;
-  }while(ch != 'q');
+    }while(ch != 'q');
   */
   timeout(-1);
   getch();
-
+  
   clear();
   printw("Your Score is %d",d);
-
+  
   timeout(-1);
   getch();
 
