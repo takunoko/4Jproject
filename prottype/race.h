@@ -1,1 +1,1 @@
-void race(int);
+int race(int);

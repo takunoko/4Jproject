@@ -73,15 +73,10 @@ int race(int seed){
     if(ch == 'r') goto RETRY;
     }while(ch != 'q');
   */
-  timeout(-1);
-  getch();
-  
   clear();
-  printw("Your Score is %d",d);
-  
-  timeout(-1);
-  getch();
-
+  // printw("Your Score is %d",d);
   endwin();
-  return 0;
+
+	// d スコア
+  return d;
 }

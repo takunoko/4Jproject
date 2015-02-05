@@ -1,7 +1,10 @@
 #include "race.h"
 
 int main(void){
-	race(4);
+	int score;
+	score = race(4);
+
+	printf("your score : %d\n", score);
 
 	return 0;
 }

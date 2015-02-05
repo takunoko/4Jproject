@@ -1,1 +1,1 @@
-#define MAX_PLAYER_SIZE 3
+#define MAX_PLAYER_SIZE 2

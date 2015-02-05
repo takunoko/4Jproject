@@ -96,12 +96,34 @@ int main(void){
 
 	// seed 値の送信
 	seed = rand();
-	printf("seed : %d\n", seed);
+	// printf("seed : %d\n", seed);
 	sprintf(s_buf, "%d", seed);
-
 	for( i=0; i<user_num; i++){
 		write(s_fd2[i], s_buf, 1024);
 	}
+
+
+	// ユーザーから送られてきたスコアの受け取り
+	// ユーザー数だけプロセスを生成する
+	for(i=0; i<user_num; i++){
+		// 各ユーザー別にプロセスを生成
+		if ((s_pid = fork()) < 0) {
+			perror("fork");
+			return 1;
+		} else if (s_pid == 0) {
+			// 子プロセス
+			int p_id, p_score;
+			read(s_fd2[i], s_buf, 1024);
+			sscanf(s_buf,"%d,%d", &p_id ,&p_score);
+			printf("process %d score: %d\n", p_id, p_score);
+
+			return 0;
+		}else{
+			// 親プロセス
+		}
+	}
+
+	scanf("%s",&s_buf);
 
 	printf("end");
 
