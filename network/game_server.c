@@ -11,6 +11,11 @@
 #include "game_def.h"
 #include "network.h"
 
+typedef struct{
+	int u_id;
+	int score;
+}SCORE;
+
 void init_prog(void);
 void multi_wait(void);
 
@@ -28,6 +33,7 @@ int main(void){
 	// ゲームで使用する変数
 	int user_num = 0;
 	int seed;
+	SCORE scores[MAX_PLAYER_SIZE];
 
 	// プロセス間通信で用いる
 	int fds[2];
@@ -152,12 +158,20 @@ int main(void){
 		}
 	}
 
+	// 子プロセスからスコアの受け取り
 	for(i=0; i<user_num; i++){
 		if(read(fds[0], buf, sizeof(buf)) < 0) {
 			perror("read()");
 			return -1;
 		}
-		printf("read : %s\n",buf);
+		// 値を読み取れてない...
+		// sscanf( buf, "%d,%d", scores[i].u_id, scores[i].score);
+		// printf("id : %d, score : %d", scores[i].u_id, scores[i].score);
+	}
+
+	// 各ユーザーに全員分のスコアを送信する
+	for(i=0; i<user_num; i++){
+
 	}
 
 	printf("end\n");
