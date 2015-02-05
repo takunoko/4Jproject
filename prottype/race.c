@@ -59,7 +59,10 @@ int race(int seed){
     if(py == 0)py = 1;
     else if(py == 4)py = 3;
     move(py,px);
-    if(inch() != ' ') break;
+    if(inch() != ' ') {
+      mvprintw(7,10,"Game over");
+      break;
+    }
     addstr("<\b");
     mvprintw(10,10,"Score:%d",d+1);
     refresh();
@@ -77,7 +80,7 @@ int race(int seed){
   getch();
   
   clear();
-  printw("Your Score is %d",d);
+  mvprintw(3,10,"Your Score is %d",d);
   
   timeout(-1);
   getch();
