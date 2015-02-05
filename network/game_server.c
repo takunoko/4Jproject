@@ -4,10 +4,15 @@
 #include <sys/socket.h>
 #include <netinet/in.h>  /* #include < sys/un.h >の代わり */
 
+#include <err.h> // 子プロセスの処理関連
+#include <errno.h>
+#include <sys/wait.h> /* wait() 子プロセスの終了待ち */
+
 #include "game_def.h"
 #include "network.h"
 
 void init_prog(void);
+void multi_wait(void);
 
 int main(void){
 	// Serverモードで使う変数
@@ -23,6 +28,21 @@ int main(void){
 	// ゲームで使用する変数
 	int user_num = 0;
 	int seed;
+
+	// プロセス間通信で用いる
+	int fds[2];
+	char buf[1024];
+
+	// パイプの初期化
+	memset(buf, 0, sizeof(buf));
+
+	// パイプを作成
+	if (pipe(fds) < 0) {
+		perror("pipe()");
+		return -1;
+	}
+
+
 
 	init_prog();
 	/*
@@ -117,19 +137,59 @@ int main(void){
 			sscanf(s_buf,"%d,%d", &p_id ,&p_score);
 			printf("process %d score: %d\n", p_id, p_score);
 
+			if(write(fds[1], s_buf, 1024) < 0) {
+				perror("write()");
+				return -1;
+			}
+
+			// パイプをクローズ
+			close(fds[0]); // 入力
+			close(fds[1]); // 出力
+
 			return 0;
 		}else{
 			// 親プロセス
 		}
 	}
 
-	scanf("%s",&s_buf);
+	for(i=0; i<user_num; i++){
+		if(read(fds[0], buf, sizeof(buf)) < 0) {
+			perror("read()");
+			return -1;
+		}
+		printf("read : %s\n",buf);
+	}
 
-	printf("end");
+	printf("end\n");
 
 	return 0;
 }
 
 void init_prog(void){
 	srand((unsigned)time(NULL));
+}
+
+void multi_wait (){
+	while(1){
+		pid_t	pid;
+		int	status = 0;
+
+		pid = wait(&status);
+
+		if (pid == -1)
+		{
+			if (ECHILD == errno)
+			{
+				// 子プロセスが存在しない
+				break;
+			}
+			else if(EINTR == errno)
+			{
+				continue;
+			}
+			// wait が失敗した
+			perror("wait error");
+		}
+		(void) printf ("parenet: child = %d, status=%d\n", pid, status);
+	}
 }
