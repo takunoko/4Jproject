@@ -38,13 +38,18 @@ int main(void){
 
 	printf("start_game\n");
 
+	// ゲームの実行
 	score = race(seed);
 	// race(seed);
 
 	// ゲーム終了後、スコアを送信する
-//	sprintf( c_buf, "%d,%d", my_id, score);
 	sprintf( c_buf, "%d,%d", my_id, score);
 	write( c_fd, c_buf, 1024);
+
+
+	// 全員分のスコアをサーバーから受け取る
+	read(c_fd, c_buf, 1024);
+	printf("c_buf: %s\n", c_buf);
 
 	close(c_fd);
 

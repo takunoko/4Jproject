@@ -28,6 +28,7 @@ int main(void){
 	int s_fd2[MAX_PLAYER_SIZE];
 	int s_pid;
 	char s_buf[1024];
+	char s_buf2[1024];
 	int i;
 
 	// ゲームで使用する変数
@@ -164,14 +165,20 @@ int main(void){
 			perror("read()");
 			return -1;
 		}
-		// 値を読み取れてない...
-		// sscanf( buf, "%d,%d", scores[i].u_id, scores[i].score);
-		// printf("id : %d, score : %d", scores[i].u_id, scores[i].score);
+		sscanf( buf, "%d,%d", &scores[i].u_id, &scores[i].score);
+		//printf("id : %d, score : %d\n", scores[i].u_id, scores[i].score);
 	}
 
 	// 各ユーザーに全員分のスコアを送信する
-	for(i=0; i<user_num; i++){
+	//	送信するデータの作成
+	sprintf(s_buf, "%d,%d\n", scores[0].u_id, scores[0].score); // 1人目のスコアを代入
+	for(i=1; i<user_num; i++){
+		sprintf(s_buf2, "%d,%d\n", scores[i].u_id, scores[i].score);
+		strcat(s_buf, s_buf2);
+	}
 
+	for(i=0; i<user_num; i++){
+		write(s_fd2[i], s_buf, 1024);
 	}
 
 	printf("end\n");
