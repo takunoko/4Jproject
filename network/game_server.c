@@ -13,6 +13,7 @@
 
 typedef struct{
 	int u_id;
+	int rank;
 	int score;
 }SCORE;
 
@@ -29,12 +30,13 @@ int main(void){
 	int s_pid;
 	char s_buf[1024];
 	char s_buf2[1024];
-	int i;
+	int i, j;
 
 	// ゲームで使用する変数
 	int user_num = 0;
 	int seed;
 	SCORE scores[MAX_PLAYER_SIZE];
+	SCORE score_swp;
 
 	// プロセス間通信で用いる
 	int fds[2];
@@ -171,12 +173,25 @@ int main(void){
 
 	// 各ユーザーに全員分のスコアを送信する
 	//	送信するデータの作成
-	sprintf(s_buf, "%d,%d\n", scores[0].u_id, scores[0].score); // 1人目のスコアを代入
+	for(i=0; i<user_num; i++){ // バブルソート
+		for(j=i; j<user_num; j++){
+			if(scores[i].score > scores[j].score){
+				score_swp = scores[i];
+				scores[i] = scores[j];
+				scores[j] = score_swp;
+			}
+		}
+	}
+
+	sprintf(s_buf, "%d,%d,%d\n", scores[0].u_id, 1, scores[0].score); // 1人目のスコアを代入
 	for(i=1; i<user_num; i++){
-		sprintf(s_buf2, "%d,%d\n", scores[i].u_id, scores[i].score);
+		// ユーザーID 順位 スコア
+		sprintf(s_buf2, "%d,%d,%d\n", scores[i].u_id, i+1, scores[i].score);
+		scores[i].rank = i+1;
 		strcat(s_buf, s_buf2);
 	}
 
+	// 各ユーザーにデータを送信
 	for(i=0; i<user_num; i++){
 		write(s_fd2[i], s_buf, 1024);
 	}
