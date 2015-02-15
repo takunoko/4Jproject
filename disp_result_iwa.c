@@ -59,7 +59,7 @@ void assign(struct node *result , char game_res[])
     count++;
   }
   if(count == 2){
-    //for(k=j+1;game_res[k]!=' ';k++){}
+    for(k=j+1;game_res[k]!=' ';k++){}
     strncpy(result->user_time , game_res+j+1 , k);
     result->user_time[3] = '\0';
     printf("%s\n" , result->user_time);

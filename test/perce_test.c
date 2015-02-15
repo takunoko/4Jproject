@@ -1,20 +1,16 @@
 #include <stdio.h>
-#include <string.h>
 
 int main(void){
-	int id, rank, score;
+	int id;
+	int rank;
+	double time;
 	char *tmp;
 
-	char str[] = "42 2 3.5\n32 4 6.2\n54 11 6.4";
-	char str2[] = "\n";
+	char str[] = "42 2 3.5";
 
-	tmp = strtok( str, str2);
-	while( tmp != NULL ){
-		printf("%s\n", tmp);
-		sscanf(tmp,"%d %d %d", &id, &rank, &score);
-		printf("%d,%d,%d\n", id, rank, score);
-		tmp = strtok( NULL, str2);
-	}
+	sscanf(str, "%d %d %lf", &id, &rank, &time);
+
+	printf("id: %d rank: %d time: %f\n", id, rank, time);
 
 	return 0;
 }
