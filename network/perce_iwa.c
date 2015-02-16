@@ -9,18 +9,18 @@ static int y=0;                    /*表示のY座標*/
 static int user;                   /*ユーザー数*/
 static int counter=0;              /*XY座標管理カウンター*/
 
-struct node{
+typedef struct{
 	char user_id[CHAR_SIZE];           /*ユーザーID*/
 	char user_rank[CHAR_SIZE];
 	char user_score[CHAR_SIZE];
-};
+}NODE;
 
-void assign(struct node *result , char game_res[]);          /*構造体に格納*/
-// void disp(struct node result);                               /*表示*/
+void assign(NODE *result , char game_res[]);          /*構造体に格納*/
+// void disp(NODE result);                               /*表示*/
 
 int main(void)
 {
-	struct node result[20]; /* ちょっと多めに確保 */
+	NODE result[20]; /* ちょっと多めに確保 */
 
 	int i2;
 
@@ -39,15 +39,21 @@ int main(void)
 	}
 
 	for(i2--; i2>=0; i2--){
-		printf("%s,%s,%s,\n", result[i2].user_id, result[i2].user_rank, result[i2].user_score);
+		printf("result : %s,%s,%s,\n", result[i2].user_id, result[i2].user_rank, result[i2].user_score);
 	}
 
 	return 0;
 
 }
 
+/*
+void perce(NODE *results,char *str){
+
+}
+*/
+
 /*データ格納関数*/
-void assign(struct node *result , char game_res[])
+void assign(NODE *result , char game_res[])
 {
 	int i,j,k;
 	int count = 0;
@@ -89,7 +95,7 @@ void assign(struct node *result , char game_res[])
  * かなりきれいでうれしいのだけど。。。
  */
 /*
-void disp(struct node result){
+void disp(NODE result){
 	int i;
 
 
