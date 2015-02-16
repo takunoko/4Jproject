@@ -15,6 +15,7 @@ typedef struct{
 	char user_score[CHAR_SIZE];
 }NODE;
 
+int perce(NODE *results, char *str);
 void assign(NODE *result , char game_res[]);          /*構造体に格納*/
 // void disp(NODE result);                               /*表示*/
 
@@ -22,35 +23,39 @@ int main(void)
 {
 	NODE result[20]; /* ちょっと多めに確保 */
 
-	int i2;
+	int size;
 
-	char *tmp;
 	char game_res[] = "APPLE 14 23.0\nB 2 2.4\nCAPTAIN 3 3.5\nDONKY 8 6.8\nEEEEEEEE 7 6.0\nF 6 5.5\nGO 4 4.2\nH 10 8.9\nI 9 7.0\nJfwefep9u 5 4.3";
-	char parce_char[] = "\n";
 
 	/* 構造体にデータを格納 */
-	i2 = 0;
-	tmp = strtok( game_res, parce_char);
-	while( tmp != NULL ){
-		printf("%s\n", tmp);
-		assign( &result[i2], tmp);  // iwa文字列パース関数
-		tmp = strtok( NULL, parce_char);
-		i2++;
-	}
+	size = perce( result, game_res);
 
-	for(i2--; i2>=0; i2--){
-		printf("result : %s,%s,%s,\n", result[i2].user_id, result[i2].user_rank, result[i2].user_score);
+	for(size--; size>=0; size--){
+		printf("%s,%s,%s,\n", result[size].user_id, result[size].user_rank, result[size].user_score);
 	}
 
 	return 0;
 
 }
 
-/*
-void perce(NODE *results,char *str){
+// 戻り値にデータの数を取る
+int perce(NODE *result, char *str){
+	int size;
 
+	char parce_char[] = "\n";
+	char *tmp;
+
+	size = 0;
+	tmp = strtok( str, parce_char);
+	while( tmp != NULL ){
+		printf("%s\n", tmp);
+		assign( &result[size], tmp);  // iwa文字列パース関数
+		tmp = strtok( NULL, parce_char);
+		size++;
+	}
+
+	return size-1;
 }
-*/
 
 /*データ格納関数*/
 void assign(NODE *result , char game_res[])
