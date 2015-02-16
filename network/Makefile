@@ -12,7 +12,7 @@ network_main : network_main.o network.o
 game_server : game_server.o network.o
 	${CC} ${OPTION} -o $@ $^
 
-game_client : game_client.o network.o ../prottype/race.o
+game_client : game_client.o network.o ../prottype/race.o perce_iwa.o
 	${CC} ${OPTION_CURSES} ${OPTION} -o $@ $^
 
 clean :

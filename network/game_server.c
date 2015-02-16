@@ -175,7 +175,7 @@ int main(void){
 	//	送信するデータの作成
 	for(i=0; i<user_num; i++){ // バブルソート
 		for(j=i; j<user_num; j++){
-			if(scores[i].score > scores[j].score){
+			if(scores[i].score < scores[j].score){
 				score_swp = scores[i];
 				scores[i] = scores[j];
 				scores[j] = score_swp;
@@ -183,10 +183,10 @@ int main(void){
 		}
 	}
 
-	sprintf(s_buf, "%d,%d,%d\n", scores[0].u_id, 1, scores[0].score); // 1人目のスコアを代入
+	sprintf(s_buf, "%d %d %d\n", scores[0].u_id, 1, scores[0].score); // 1人目のスコアを代入
 	for(i=1; i<user_num; i++){
 		// ユーザーID 順位 スコア
-		sprintf(s_buf2, "%d,%d,%d\n", scores[i].u_id, i+1, scores[i].score);
+		sprintf(s_buf2, "%d %d %d\n", scores[i].u_id, i+1, scores[i].score);
 		scores[i].rank = i+1;
 		strcat(s_buf, s_buf2);
 	}

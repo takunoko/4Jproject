@@ -7,8 +7,10 @@
 // client側で使う
 #include <netdb.h>
 
+#include "game_def.h"
 #include "network.h"
 #include "../prottype/race.h"
+#include "perce_iwa.h"
 
 int main(void){
 	// Clientモードで使う変数
@@ -20,6 +22,8 @@ int main(void){
 	int my_id;
 	int seed;
 	int score;
+	// 他ユーザーの情報
+	NODE results[MAX_PLAYER_SIZE];
 
 	c_fd = init_client();
 	// 入力されたデータをソケットに書き込んでサーバーに送り、
@@ -49,11 +53,14 @@ int main(void){
 
 	// 全員分のスコアをサーバーから受け取る
 	read(c_fd, c_buf, 1024);
-	printf("c_buf: %s\n", c_buf);
+	// printf("c_buf: %s\n", c_buf);
+
+	perce( results, c_buf);
+	disp_result( results, MAX_PLAYER_SIZE, my_id);
 
 	close(c_fd);
 
-	printf("Your score : %d\n", score);
+	// printf("Your score : %d\n", score);
 
 	return 0;
 }
