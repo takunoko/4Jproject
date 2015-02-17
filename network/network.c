@@ -25,12 +25,13 @@ int init_client(void){
 	int    fd;
 	int    len;
 
-	char s_name[20] = "localhost";
+	//char s_name[20] = "localhost";
+	char s_name[20];
 
 	// サーバー名入力->接続
 	// localhostでとりあえず固定している　
-	// printf("Server Name : ");
-	// scanf("%s",s_name);
+	printf("Server Name : ");
+	scanf("%s",s_name);
 
 	// ソケットを作る。このソケットはINETドメインで、ストリーム型ソケット。
 	if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {

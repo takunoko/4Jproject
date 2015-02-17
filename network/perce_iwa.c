@@ -51,7 +51,6 @@ int perce(NODE *result, char *str){
 	size = 0;
 	tmp = strtok( str, parce_char);
 	while( tmp != NULL ){
-		printf("%s\n", tmp);
 		assign( &result[size], tmp);  // iwa文字列パース関数
 		tmp = strtok( NULL, parce_char);
 		size++;
@@ -84,7 +83,7 @@ void assign(NODE *result , char game_res[])
 		for(j=i+1;game_res[j]!=' ';j++){}
 		strncpy(result->user_rank , game_res+i+1 , j-i-1);
 		result->user_rank[j-i] = '\0';
-		printf("%s\n",result->user_rank);
+		// printf("%s\n",result->user_rank);
 		count++;
 	}
 

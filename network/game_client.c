@@ -40,8 +40,6 @@ int main(void){
 	seed = atoi( c_buf);
 	srand(seed);
 
-	printf("start_game\n");
-
 	// ゲームの実行
 	score = race(seed);
 	// race(seed);
