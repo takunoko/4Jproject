@@ -1,4 +1,4 @@
-// ¤È¤ê¤¢¤¨¤º¡¢Ê¸»ú¥³¡¼¥É¤Ï¤³¤Î¤Ş¤Ş¤Ç¥ª¥Ê¥·¥ã¥¹ 
+// ã¨ã‚Šã‚ãˆãšã€æ–‡å­—ã‚³ãƒ¼ãƒ‰ã¯ã“ã®ã¾ã¾ã§ã‚ªãƒŠã‚·ãƒ£ã‚¹ 
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,31 +6,31 @@
 
 #define CHAR_SIZE 30
 
-static int x=0;                    /*É½¼¨¤ÎXºÂÉ¸*/
-static int y=0;                    /*É½¼¨¤ÎYºÂÉ¸*/
-static int user;                   /*¥æ¡¼¥¶¡¼¿ô*/
-static int counter=0;              /*XYºÂÉ¸´ÉÍı¥«¥¦¥ó¥¿¡¼*/
+static int x=0;                    /*è¡¨ç¤ºã®Xåº§æ¨™*/
+static int y=0;                    /*è¡¨ç¤ºã®Yåº§æ¨™*/
+static int user;                   /*ãƒ¦ãƒ¼ã‚¶ãƒ¼æ•°*/
+static int counter=0;              /*XYåº§æ¨™ç®¡ç†ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼*/
 
 typedef struct{
-	char user_id[CHAR_SIZE];           /*¥æ¡¼¥¶¡¼ID*/
+	char user_id[CHAR_SIZE];           /*ãƒ¦ãƒ¼ã‚¶ãƒ¼ID*/
 	char user_rank[CHAR_SIZE];
 	char user_score[CHAR_SIZE];
 }NODE;
 
 int perce(NODE *results, char *str);
-void assign(NODE *result , char game_res[]);          /*¹½Â¤ÂÎ¤Ë³ÊÇ¼*/
+void assign(NODE *result , char game_res[]);          /*æ§‹é€ ä½“ã«æ ¼ç´*/
 void disp_result(NODE *result, int, int);
-void disp(NODE result);                               /*É½¼¨*/
+void disp(NODE result);                               /*è¡¨ç¤º*/
 
 int main_dummy(void)
 {
-	NODE result[20]; /* ¤Á¤ç¤Ã¤ÈÂ¿¤á¤Ë³ÎÊİ */
+	NODE result[20]; /* ã¡ã‚‡ã£ã¨å¤šã‚ã«ç¢ºä¿ */
 
 	int size;
 
 	char game_res[] = "APPLE 1 23.0\nB 2 2.4\nCAPTAIN 3 3.5\nDONKY 8 6.8\n4 7 6.0\nF 6 5.5\nGO 4 4.2\nH 10 8.9\nI 9 7.0\nJfwefep9u 5 4.3";
 
-	/* ¹½Â¤ÂÎ¤Ë¥Ç¡¼¥¿¤ò³ÊÇ¼ */
+	/* æ§‹é€ ä½“ã«ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´ */
 	size = perce( result, game_res);
 
 	// for(size--; size>=0; size--){
@@ -43,7 +43,7 @@ int main_dummy(void)
 
 }
 
-// Ìá¤êÃÍ¤Ë¥Ç¡¼¥¿¤Î¿ô¤ò¼è¤ë
+// æˆ»ã‚Šå€¤ã«ãƒ‡ãƒ¼ã‚¿ã®æ•°ã‚’å–ã‚‹
 int perce(NODE *result, char *str){
 	int size;
 
@@ -53,7 +53,7 @@ int perce(NODE *result, char *str){
 	size = 0;
 	tmp = strtok( str, parce_char);
 	while( tmp != NULL ){
-		assign( &result[size], tmp);  // iwaÊ¸»úÎó¥Ñ¡¼¥¹´Ø¿ô
+		assign( &result[size], tmp);  // iwaæ–‡å­—åˆ—ãƒ‘ãƒ¼ã‚¹é–¢æ•°
 		tmp = strtok( NULL, parce_char);
 		size++;
 	}
@@ -61,7 +61,7 @@ int perce(NODE *result, char *str){
 	return size-1;
 }
 
-/*¥Ç¡¼¥¿³ÊÇ¼´Ø¿ô*/
+/*ãƒ‡ãƒ¼ã‚¿æ ¼ç´é–¢æ•°*/
 void assign(NODE *result , char game_res[])
 {
 	int i,j,k;
@@ -70,9 +70,9 @@ void assign(NODE *result , char game_res[])
 
 	i=j=k=0;
 
-	/*3¤Ä¤ÎÍ×ÁÇ¤ËÊ¬³ä¡¦ÂåÆş*/
+	/*3ã¤ã®è¦ç´ ã«åˆ†å‰²ãƒ»ä»£å…¥*/
 
-	/*Ì¾Á°*/
+	/*åå‰*/
 	if(count == 0){
 		for(i=0;game_res[i]!=' ';i++){}
 		strncpy(result->user_id , game_res+0 , i);
@@ -80,7 +80,7 @@ void assign(NODE *result , char game_res[])
 		count++;
 	}
 
-	/*½ç°Ì*/
+	/*é †ä½*/
 	if(count == 1){
 		for(j=i+1;game_res[j]!=' ';j++){}
 		strncpy(result->user_rank , game_res+i+1 , j-i-1);
@@ -89,7 +89,7 @@ void assign(NODE *result , char game_res[])
 		count++;
 	}
 
-	/*¥¿¥¤¥à*/
+	/*ã‚¿ã‚¤ãƒ */
 	if(count == 2){
 		for(k=j+1;game_res[k]!='\0';k++){}
 		strncpy(result->user_score , game_res+j+1 , k-j);
@@ -98,7 +98,7 @@ void assign(NODE *result , char game_res[])
 	}
 }
 
-// ·ë²Ì¤ÎÉ½¼¨
+// çµæœã®è¡¨ç¤º
 void disp_result(NODE *result, int player_size, int my_id){
 	int i;
 	int pos_x, pos_y;
@@ -118,9 +118,9 @@ void disp_result(NODE *result, int player_size, int my_id){
 	}
 }
 
-/*É½¼¨¤µ¤»¤ë´Ø¿ô*/
-/* ¤´¤á¤ó¤Ê¤µ¤¤ curses¤òÍøÍÑ¤¹¤ë¤Î¤Ç¡¢¤Á¤ç¤È»È¤¨¤Ê¤¤¤Ç¤¹
- * ¤«¤Ê¤ê¤­¤ì¤¤¤Ç¤¦¤ì¤·¤¤¤Î¤À¤±¤É¡£¡£¡£
+/*è¡¨ç¤ºã•ã›ã‚‹é–¢æ•°*/
+/* ã”ã‚ã‚“ãªã•ã„ cursesã‚’åˆ©ç”¨ã™ã‚‹ã®ã§ã€ã¡ã‚‡ã¨ä½¿ãˆãªã„ã§ã™
+ * ã‹ãªã‚Šãã‚Œã„ã§ã†ã‚Œã—ã„ã®ã ã‘ã©ã€‚ã€‚ã€‚
  */
 
 /*
@@ -128,17 +128,17 @@ void disp(NODE result){
 	int i;
 
 
-	// ºÇ½é¤ÎÉ½¼¨¤ò¤¹¤ë¤È¤­¤Ë²èÌÌ¤ò½é´ü²½¤¹¤ë
+	// æœ€åˆã®è¡¨ç¤ºã‚’ã™ã‚‹ã¨ãã«ç”»é¢ã‚’åˆæœŸåŒ–ã™ã‚‹
 	if(counter == 0){
-		printf("\033[2J");         // ²èÌÌ¤ò¥¯¥ê¥¢
-		printf("\033[%d;%dH",y,x); // ºÂÉ¸»ØÄê
-		printf("\x1b[31m");        // Ê¸»ú¿§»ØÄê
+		printf("\033[2J");         // ç”»é¢ã‚’ã‚¯ãƒªã‚¢
+		printf("\033[%d;%dH",y,x); // åº§æ¨™æŒ‡å®š
+		printf("\x1b[31m");        // æ–‡å­—è‰²æŒ‡å®š
 		printf("------------------------------------------ R E S U L T ------------------------------------------\n");
 		printf("\x1b[39m");
 	}
 
 
-	// 5¡ß2¤ÇÉ½¼¨
+	// 5Ã—2ã§è¡¨ç¤º
 	switch(counter){
 		case 0: x=0; y=3; break;
 		case 1: x=20; y=3; break;
@@ -152,7 +152,7 @@ void disp(NODE result){
 		case 9: x=80; y=9; break;
 	}
 
-	// 1°Ì¡Á¤Î½ç¤Ç·ë²Ì¤òÉ½¼¨¤¹¤ë¤È²¾Äê¤·¤Æ3°Ì¤Ş¤Ç¤ÎÊ¸»ú¿§¤òÊÑ¹¹¤¹¤ë(½ç°Ì¤È¥¿¥¤¥à¤Î¤ß)
+	// 1ä½ã€œã®é †ã§çµæœã‚’è¡¨ç¤ºã™ã‚‹ã¨ä»®å®šã—ã¦3ä½ã¾ã§ã®æ–‡å­—è‰²ã‚’å¤‰æ›´ã™ã‚‹(é †ä½ã¨ã‚¿ã‚¤ãƒ ã®ã¿)
 
 	printf("\033[%d;%dH",y,x);
 	printf("[ID]");

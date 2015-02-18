@@ -106,12 +106,3 @@ int init_server(void){
 
 	return fd1;
 }
-
-void send_num(int clients, int num){
-	int i;
-	char buf[1024];
-
-
-	for(i=0; i<clients; i++){}
-
-}

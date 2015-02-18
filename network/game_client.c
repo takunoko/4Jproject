@@ -42,7 +42,6 @@ int main(void){
 
 	// ゲームの実行
 	score = race(seed);
-	// race(seed);
 
 	// ゲーム終了後、スコアを送信する
 	sprintf( c_buf, "%d,%d", my_id, score);
@@ -51,14 +50,11 @@ int main(void){
 
 	// 全員分のスコアをサーバーから受け取る
 	read(c_fd, c_buf, 1024);
-	// printf("c_buf: %s\n", c_buf);
 
 	perce( results, c_buf);
 	disp_result( results, MAX_PLAYER_SIZE, my_id);
 
 	close(c_fd);
-
-	// printf("Your score : %d\n", score);
 
 	return 0;
 }
