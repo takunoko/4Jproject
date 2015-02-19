@@ -157,8 +157,8 @@ int main(void){
 	for(i=0; i<user_num; i++){
 		write(s_fd2[i], s_buf, 1024);
 	}
-
-	printf("end\n");
+	
+	close(s_fd1);
 
 	return 0;
 }
